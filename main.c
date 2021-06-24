@@ -3,9 +3,8 @@
 
 void fill(char *cp, int size, char c)
 {
-	for (int i = 0; i < size; i++) {
-		cp[i] = c;
-	}
+	while (size)
+		cp[--size] = c;
 }
 
 void draw(char *cel, int size)
@@ -23,32 +22,18 @@ void life_cycle(char *cp, int size)
 	char neighbours[size*size];
 	fill(neighbours, size*size, 0);
 	for (int i = 0; i < size*size; i++) {
-		if (cp[i] == '#') {
-			if (i < size*(size -1)) {
-				neighbours[i + size]++; 
-				if ((i + 1) % size > 0)
-					neighbours[i + size + 1]++; 
-				if (i % size > 0)
-					neighbours[i + size - 1]++; 
-			}
-			if (i > size) {
-				neighbours[i - size]++; 
-				if ((i + 1) % size > 0)
-					neighbours[i - size + 1]++; 
-				if (i % size > 0)
-					neighbours[i - size - 1]++; 
-			}
-			if ((i + 1) % size > 0)
-				neighbours[i + 1]++; 
-			if (i % size > 0)
-				neighbours[i - 1]++; 
+		for (int n = 0; n < 9; n++) {
+			if (n == 4)
+				continue;
+			if (cp[i + ((n/3)-1)*size + ((n%3)-1)] == '#')
+				neighbours[i]++;
 		}
 	}
 	for (int i = 0; i < size*size; i++) {
-		if (cp[i] == '.')
-			cp[i] = (neighbours[i] == 3)?'#':'.';
-		if (cp[i] == '#')
-			cp[i] = (neighbours[i] == 2 || neighbours[i] == 3)?'#':'.';
+		if (neighbours[i] == 3)
+			cp[i] = '#';
+		else if (neighbours[i] !=2)
+			cp[i] = '.';
 	}
 }
 
