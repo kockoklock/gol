@@ -26,21 +26,21 @@ void life_cycle(char *cp, int size)
 		if (cp[i] == '#') {
 			if (i < size*(size -1)) {
 				neighbours[i + size]++; 
-				if ((i + 1) % 20 > 0)
+				if ((i + 1) % size > 0)
 					neighbours[i + size + 1]++; 
-				if (i % 20 > 0)
+				if (i % size > 0)
 					neighbours[i + size - 1]++; 
 			}
 			if (i > size) {
 				neighbours[i - size]++; 
-				if ((i + 1) % 20 > 0)
+				if ((i + 1) % size > 0)
 					neighbours[i - size + 1]++; 
-				if (i % 20 > 0)
+				if (i % size > 0)
 					neighbours[i - size - 1]++; 
 			}
-			if ((i + 1) % 20 > 0)
+			if ((i + 1) % size > 0)
 				neighbours[i + 1]++; 
-			if (i % 20 > 0)
+			if (i % size > 0)
 				neighbours[i - 1]++; 
 		}
 	}
