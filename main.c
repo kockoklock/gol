@@ -49,13 +49,13 @@ int main()
 		printf("How many cells ought live by phase 0?\n");
 		s = scanf("%d", &num);
 	} while (num < 1 || s < 0);
-	for (int i = 0; i < num; i++) {
+	while (num) {
 		int col = 0, row = 0;
 		draw(cel, size);
-		printf("Choose position of cell %d, on the form COL ROW.\n", i);
+		printf("Choose position of cell %d, on the form COL ROW.\n", num--);
 		s = scanf("%d %d", &col, &row);
 		if (s < 0 || row < 0 || col < 0 || row >= size || col >= size) {
-			i--;
+			num++;	
 			continue;
 		}
 		cel[size*row + col] = '#';
@@ -66,7 +66,7 @@ int main()
 		s = scanf("%d", &num);
 	} while (num < 1 || s < 0);
 	draw(cel, size);
-	for (int i = 0; i < num; i++) {
+	for (;num; num--) {
 		sleep(1);
 		life_cycle(cel, size);
 		draw(cel, size);
